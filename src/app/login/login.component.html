@@ -31,15 +31,20 @@
                     <i class="material-icons">email</i>
                   </span>
                 </div>
-                <input type="email" [(ngModel)]="email" class="form-control" placeholder="Email...">
+                <input required #name="ngModel" type="email" required [(ngModel)]="email" class="form-control" placeholder="Email...">
               </div>
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+  <div *ngIf="name.errors.required">
+    Name is required.
+  </div>
+</div>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" [(ngModel)]="password" class="form-control" placeholder="Password...">
+                <input type="password" required [(ngModel)]="password" class="form-control" placeholder="Password...">
               </div>
               <!-- If you want to add a checkbox to this form, uncomment this code
 
@@ -54,7 +59,7 @@
             </div> -->
             </div>
             <div class="card-footer justify-content-center">
-              <button (click)="checkuser()" class="btn btn-link btn-primary btn-lg">Get Started</button>
+              <button (click)="checkuser()"  class="btn btn-link btn-primary btn-lg">Get Started</button>
               <button (click)="signupuser()" class="btn btn-link btn-primary btn-lg">View Signup Page</button>
               
             </div>

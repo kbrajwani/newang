@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
  email:string;
  password:string;
  arr:string[][];
-
+token:string;
  str:string;
   ngOnInit() {
     localStorage.setItem('Email',null);
@@ -31,6 +31,15 @@ export class LoginComponent implements OnInit {
       (x:User_Class[])=>{
        console.log(x);
         if (x.length==1) {
+          this.data.token(this.email).subscribe(
+(x:User_Class[])=>{
+this.token=x[0].user_token;
+localStorage.setItem('Token',this.token);
+},
+function(error){alert("error");},			
+        function(){
+      }		
+          );
           localStorage.setItem('Email',this.email);
           window.location.reload();
           

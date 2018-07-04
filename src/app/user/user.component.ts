@@ -15,16 +15,27 @@ export class UserComponent implements OnInit {
   email:string;
   password:string;
   name:string;
+  token:string;
   ngOnInit() {
+    this.token=localStorage.getItem('Token');
+    
 this.email=localStorage.getItem('Email');
-    this.data.getUser(this.email).subscribe(
+    this.data.getUser(new User_Class(this.email,'','','',this.token)).subscribe(
       (x:User_Class[])=>{
-//alert(x);
-
+        
+if(x.length==1)
+{
 this.email=x[0].user_email;
 this.name=x[0].user_name;
 this.password=x[0].password;
-console.log(this.password);
+}
+else
+{
+  alert("you are not authorized user");
+  localStorage.setItem('Email',null);
+  window.location.reload();
+  this._router.navigate(['\login']);
+}
       },
       function(error){alert("error");},			
         function(){
@@ -35,7 +46,7 @@ console.log(this.password);
 
   update()
   {
-    this.data.updateuser(new User_Class(this.email,this.name,this.password,'','')).subscribe(
+    this.data.updateuser(new User_Class(this.email,this.name,this.password,'',this.token)).subscribe(
       (x:User_Class[])=>{
         
         alert("success");

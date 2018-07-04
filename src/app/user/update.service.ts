@@ -9,12 +9,13 @@ import 'rxjs/add/operator/map';
 export class UpdateService {
   url_login: string = "http://localhost:3000/login/";
   constructor(public http: HttpClient) { }
-  getUser(email){
-    return this.http.get(this.url_login+email);
+  getUser(user){
+    let body = JSON.stringify(user);
+    return this.http.get(this.url_login+user.user_email+"/"+user.user_token);
    }
   updateuser(user){
     let body = JSON.stringify(user);
-    
+     
     return this.http.put(this.url_login+user.user_email, body,{headers:new HttpHeaders().set('Content-Type','application/json')} );
 
   }
